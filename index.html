@@ -3,536 +3,443 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PredictionMart — Trade Tomorrow</title>
-
-  <!-- Google Fonts -->
+  <title>PredictionMart — Trade the Future</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
   <style>
-    :root{
-      --bg:#0f1724;
-      --card:#0b1220;
-      --muted:#9aa5b1;
-      --accent:#0ea5a4; /* teal-ish like Kite */
-      --accent-2:#06b6d4;
-      --glass: rgba(255,255,255,0.04);
-      --glass-2: rgba(255,255,255,0.02);
-      --radius:14px;
-      --max-width:1100px;
+    :root {
+      --bg-color: #0a0f1a;
+      --card-bg: #0f1628;
+      --text-light: #eef2f5;
+      --text-muted: #8a9aad;
+      --accent: #ff7f0f;     /* orange accent */
+      --accent-light: #ffb25f;
+      --radius: 12px;
+      --max-width: 1040px;
     }
-    html,body{height:100%;}
-    body{
-      margin:0;
-      font-family:'Inter',system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      background: linear-gradient(180deg,#071126 0%, #03101b 100%);
-      color:#e6eef3;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      padding:32px 20px;
-      display:flex;
-      justify-content:center;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      background: var(--bg-color);
+      color: var(--text-light);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.5;
     }
-
-    .container{
-      width:100%;
-      max-width:var(--max-width);
+    a { color: inherit; text-decoration: none; }
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 32px 20px;
     }
-
-    header.topbar{
-      display:flex;
-      align-items:center;
-      gap:18px;
-      margin-bottom:20px;
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 48px;
     }
-    .logo{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      text-decoration:none;
-      color:inherit;
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent);
     }
-    .logo .mark{
-      width:48px;
-      height:48px;
-      border-radius:10px;
-      background: linear-gradient(135deg,var(--accent),var(--accent-2));
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:800;
-      color:#022026;
-      box-shadow: 0 6px 18px rgba(6,182,212,0.12), inset 0 -6px 14px rgba(255,255,255,0.06);
+    nav a {
+      margin-left: 24px;
+      font-size: 16px;
+      font-weight: 500;
     }
-    .logo h1{font-size:18px;margin:0;line-height:1}
-    .logo p{font-size:12px;margin:0;color:var(--muted)}
-
-    .hero{
-      display:flex;
-      gap:24px;
-      align-items:stretch;
-      margin-bottom:28px;
+    .hero {
+      text-align: center;
+      margin-bottom: 64px;
     }
-
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius: var(--radius);
-      padding:20px;
-      box-shadow: 0 10px 30px rgba(1,10,18,0.6);
-      border:1px solid rgba(255,255,255,0.03);
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 16px;
+      color: var(--accent);
     }
-
-    .hero-left{flex:1; padding:24px;}
-    .hero-right{width:420px; min-width:280px; padding:18px;}
-
-    .mission-title{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin-bottom:12px;
+    .hero p {
+      font-size: 20px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 24px auto;
     }
-    .badge{
-      padding:6px 10px;
-      border-radius:999px;
-      background:rgba(14,165,164,0.12);
-      color:var(--accent);
-      font-weight:600;
-      font-size:13px;
-    }
-    h2{margin:0 0 12px 0;font-size:22px}
-    p.lead{color:var(--muted); margin:0 0 18px 0; line-height:1.5}
-
-    .cta-row{display:flex;gap:12px;margin-top:8px}
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 14px;
-      border-radius:10px;
-      font-weight:600;
-      cursor:pointer;
+    .hero .btn {
+      background-color: var(--accent);
+      color: var(--bg-color);
+      padding: 14px 28px;
+      font-size: 18px;
       border: none;
-      text-decoration:none;
+      border-radius: var(--radius);
+      cursor: pointer;
     }
-    .btn.primary{
-      background: linear-gradient(90deg,var(--accent),var(--accent-2));
-      color:#022026;
-      box-shadow: 0 8px 28px rgba(6,182,212,0.12);
+    section {
+      margin-bottom: 64px;
     }
-    .btn.ghost{
-      background:transparent;
-      color:var(--muted);
-      border:1px solid rgba(255,255,255,0.04);
+    section h2 {
+      font-size: 28px;
+      margin-bottom: 16px;
+      color: var(--accent);
     }
-
-    /* Two column content under hero */
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr 380px;
-      gap:22px;
-      margin-bottom:28px;
+    section p {
+      color: var(--text-light);
+      margin-bottom: 16px;
     }
-
-    /* personas */
-    .personas{display:flex;flex-direction:column;gap:12px;}
-    .persona{
-      display:flex;
-      justify-content:space-between;
-      background:var(--glass);
-      padding:12px;
-      border-radius:10px;
-      align-items:center;
-      border:1px solid rgba(255,255,255,0.02);
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
     }
-    .persona .meta{display:flex;gap:12px;align-items:center}
-    .avatar{
-      width:48px;height:48px;border-radius:10px;background:linear-gradient(180deg,#0b91a8,#046a7a);
-      display:flex;align-items:center;justify-content:center;font-weight:700;color:#011518;
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,0.06);
     }
-    .person-title{font-weight:700}
-    .person-sub{font-size:13px;color:var(--muted)}
-
-    /* explanation*/
-    .section{margin-bottom:18px}
-    .section h3{margin:0 0 10px 0;font-size:16px}
-    .def-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .def-card{background:var(--glass-2);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
-
-    /* operational steps */
-    .steps{display:flex;flex-direction:column;gap:10px}
-    .step{
-      display:flex;gap:12px;align-items:flex-start;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01)); padding:12px;border-radius:10px;
+    .persona {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
     }
-    .step .num{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;font-weight:700}
-    .small{font-size:13px;color:var(--muted)}
-
-    /* examples */
-    .trade-example{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
-    .trade-example h4{margin:0 0 8px 0}
-    .trade-example p{margin:0;color:var(--muted)}
-
-    /* widgets area */
-    .widget{
-      margin-top:12px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);
+    .persona .avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: var(--bg-color);
+      font-weight: 700;
+    }
+    .persona .info {
+      flex: 1;
+    }
+    .persona .info h3 {
+      color: var(--accent);
+      margin-bottom: 6px;
+      font-size: 20px;
+    }
+    .persona .info p {
+      color: var(--text-light);
+      font-size: 15px;
     }
 
-    /* market card specifics */
-    .market-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px}
-    .market-title{font-weight:700}
-    .market-stats{display:flex;gap:12px;align-items:center;color:var(--muted);font-size:13px}
-
-    footer{
-      margin-top:18px;color:var(--muted);font-size:13px;
-      display:flex;justify-content:space-between;align-items:center;gap:10px;
+    /* Definition / concept list */
+    .defs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      gap: 24px;
+    }
+    .def-box {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .def-box h4 {
+      margin-bottom: 8px;
+      color: var(--accent);
+      font-size: 18px;
+    }
+    .def-box p {
+      color: var(--text-light);
+      font-size: 14px;
     }
 
-    /* responsive */
-    @media (max-width:980px){
-      .grid{grid-template-columns:1fr}
-      .hero{flex-direction:column}
-      .hero-right{width:100%}
+    .steps {
+      list-style: none;
+      margin-top: 24px;
+    }
+    .steps li {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .steps li .num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: var(--bg-color);
+      font-weight: 700;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .steps li .desc {
+      flex: 1;
+    }
+    .steps li .desc h4 {
+      margin-bottom: 6px;
+      color: var(--accent);
+      font-size: 18px;
+    }
+    .steps li .desc p {
+      color: var(--text-light);
+      font-size: 14px;
+    }
+
+    .trade-example {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 32px;
+    }
+    .trade-example h4 {
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .trade-example p {
+      color: var(--text-light);
+      font-size: 14px;
+    }
+
+    .widget {
+      margin-top: 32px;
+    }
+    .widget .widget-header {
+      margin-bottom: 16px;
+    }
+
+    /* YouTube Section */
+    #video-demo {
+      margin-top: 48px;
+    }
+    #video-demo .card {
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    #video-demo iframe {
+      width: 100%;
+      height: 315px;
+      border-radius: var(--radius);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 64px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 800px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        margin-top: 16px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container" role="main">
-    <header class="topbar">
-      <a class="logo" href="#">
-        <div class="mark">PM</div>
-        <div>
-          <h1>PredictionMart</h1>
-          <p>Trade probabilities. Hedge, learn, and invest.</p>
-        </div>
-      </a>
+  <div class="container">
+    <header>
+      <div class="logo">PredictionMart</div>
+      <nav>
+        <a href="#mission">Mission</a>
+        <a href="#concepts">Concepts</a>
+        <a href="#get-started">Get Started</a>
+        <a href="#simulator">Simulator</a>
+        <a href="#video-demo">Learn</a>
+      </nav>
     </header>
 
-    <section class="hero">
-      <div class="card hero-left">
-        <div class="mission-title">
-          <div class="badge">Beta • Dubai / Singapore</div>
-          <div style="flex:1">
-            <h2>Our mission</h2>
-            <p class="lead">
-              PredictionMart brings transparent, verifiable markets for future events — from macroeconomics to technology launches and geopolitical outcomes — enabling institutions and curious individuals across Asia to discover collective probability, hedge risk, and monetize foresight.
-            </p>
-          </div>
-        </div>
-
-        <div class="section">
-          <h3>Why prediction markets?</h3>
-          <div class="def-list" style="margin-top:8px">
-            <div class="def-card">
-              <strong>Collective intelligence</strong>
-              <p class="small">Markets aggregate distributed information: prices encode a crowd’s belief about an event's likelihood.</p>
-            </div>
-            <div class="def-card">
-              <strong>Transparent payoff</strong>
-              <p class="small">Each share pays a fixed amount if the event occurs — the current price equals the market-implied probability (e.g., $0.42 ≈ 42%).</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="section">
-          <h3>How price maps to probability — quick primer</h3>
-          <p class="small">If a contract pays $1 if "Event X happens", and a share trades at $0.30, the market's consensus probability is 30%. Buying shares is equivalent to betting that the event will occur; selling is effectively betting it won't. Liquidity and market mechanics determine slippage and execution price.</p>
-        </div>
-
-        <div class="section">
-          <h3>Operational steps</h3>
-          <div class="steps">
-            <div class="step">
-              <div class="num">1</div>
-              <div>
-                <strong>Sign up</strong>
-                <div class="small">Create an account (KYC/Regulatory checks applied based on your jurisdiction).</div>
-              </div>
-            </div>
-            <div class="step">
-              <div class="num">2</div>
-              <div>
-                <strong>Deposit funds</strong>
-                <div class="small">Add INR, USD or supported stablecoins. We support bank transfer and wallet partners across Asia.</div>
-              </div>
-            </div>
-            <div class="step">
-              <div class="num">3</div>
-              <div>
-                <strong>Buy or sell shares</strong>
-                <div class="small">Pick an event, set quantity/price, and execute. Fees are transparent per trade.</div>
-              </div>
-            </div>
-            <div class="step">
-              <div class="num">4</div>
-              <div>
-                <strong>Settlement</strong>
-                <div class="small">When an event resolves, shares that predicted the correct outcome pay out automatically; losers expire worthless.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="section">
-          <h3>Example transactions</h3>
-
-          <div class="trade-example" style="margin-bottom:10px">
-            <h4>Example 1 — Product launch (short-term)</h4>
-            <p class="small">Market: "Will Company X release Product Y by Nov 30, 2025?" Price when Anna buys: $0.25. Anna spends $100 to buy 400 shares. If the product ships by Nov 30, each share pays $1 → Anna receives $400 (profit $300 minus fees). If not, she loses her $100 stake.</p>
-          </div>
-
-          <div class="trade-example" style="margin-bottom:10px">
-            <h4>Example 2 — Macro (hedge)</h4>
-            <p class="small">Market: "Will Country Z's CPI exceed 6% in Q4 2026?" Price: $0.60. Ravi believes the risk is lower and sells 200 shares (collects $120). If CPI stays ≤6% (event does not occur), Ravi keeps $120 as profit. If it exceeds 6%, he owes $200 (net loss $80).</p>
-          </div>
-
-          <div class="trade-example">
-            <h4>Example 3 — Speculative play</h4>
-            <p class="small">Market: "Will Project A get regulatory approval by June 2026?" Price drifts from $0.40 to $0.70. Mei bought at $0.40 and sold at $0.68 after news — she realized a 70% gain before resolution.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right column: quick markets & widget -->
-      <aside class="card hero-right">
-        <div style="display:flex;align-items:center;justify-content:space-between;">
-          <div>
-            <div style="font-size:13px;color:var(--muted)">Featured market</div>
-            <div style="font-weight:700;font-size:18px">Will Company X release Product Y by Nov 30, 2025?</div>
-          </div>
-          <div style="text-align:right">
-            <div style="font-weight:800;font-size:20px;color:var(--accent)">42%</div>
-            <div style="font-size:12px;color:var(--muted)">Price: $0.42</div>
-          </div>
-        </div>
-
-        <!-- Custom Widget: Market Simulator -->
-        <div class="widget" aria-labelledby="market-sim">
-          <div class="market-header">
-            <div>
-              <div class="market-title">Market Simulator</div>
-              <div class="small">Simulates a single market's price evolution. Click "Add datapoint" to push a new random update.</div>
-            </div>
-            <div class="market-stats">
-              <div id="latestPercent">Latest: —</div>
-            </div>
-          </div>
-
-          <canvas id="marketChart" height="180" style="width:100%;display:block"></canvas>
-
-          <div style="display:flex;gap:10px;margin-top:12px;align-items:center">
-            <button class="btn primary" id="addPointBtn">Add datapoint</button>
-            <button class="btn ghost" id="resetBtn">Reset</button>
-            <div style="margin-left:auto;color:var(--muted);font-size:13px">Random walk model</div>
-          </div>
-        </div>
-
-        <!-- Prebuilt widget: YouTube video embed -->
-        <div class="widget" style="margin-top:14px;">
-          <h3 style="margin:0 0 8px 0">Learn: Why prediction markets work</h3>
-          <div style="font-size:13px;color:var(--muted);margin-bottom:8px">Short explainer from an industry expert.</div>
-          <div style="position:relative;padding-top:56.25%;border-radius:8px;overflow:hidden;">
-            <!-- You can replace the src with any YouTube video you'd like to embed -->
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/7qI2H0M6tn8" title="YouTube video player"
-              style="position:absolute;left:0;top:0;width:100%;height:100%;border:0;border-radius:8px;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-
-      </aside>
+    <section id="mission" class="hero">
+      <h1>Trade the Future. Quantify Collective Belief.</h1>
+      <p>PredictionMart is the platform where informed opinion becomes tradable. Buy and sell shares on outcomes in tech, trade, economics & geopolitics. We turn consensus into capital.</p>
+      <button class="btn">Explore Markets</button>
     </section>
 
-    <!-- Wider content below -->
-    <div class="grid">
-      <div class="card">
-        <div class="section">
-          <h3>Target customer personas</h3>
-          <div class="personas">
-            <div class="persona">
-              <div class="meta">
-                <div class="avatar">IN</div>
-                <div>
-                  <div class="person-title">Institutional research analyst</div>
-                  <div class="person-sub">Uses markets to inform macro forecasts and proprietary models.</div>
-                </div>
-              </div>
-              <div class="small">Risk-managed capital</div>
+    <section id="concepts">
+      <h2>Who Trades on PredictionMart?</h2>
+      <div class="grid-2">
+        <div class="card">
+          <div class="persona">
+            <div class="avatar">DE</div>
+            <div class="info">
+              <h3>Domain Expert</h3>
+              <p>Professional with deep domain knowledge (e.g. central bank analyst, tech lead). Uses unique insight to trade outcomes.</p>
             </div>
-
-            <div class="persona">
-              <div class="meta">
-                <div class="avatar">ST</div>
-                <div>
-                  <div class="person-title">Startup founder / Product lead</div>
-                  <div class="person-sub">Hedging launch timelines or regulatory outcomes.</div>
-                </div>
-              </div>
-              <div class="small">Event-focused</div>
+          </div>
+          <div class="persona">
+            <div class="avatar">DS</div>
+            <div class="info">
+              <h3>Data Scientist</h3>
+              <p>Builds models and identifies mispricings in event markets. Trades small edges fast.</p>
             </div>
-
-            <div class="persona">
-              <div class="meta">
-                <div class="avatar">UG</div>
-                <div>
-                  <div class="person-title">Curious retail trader (college / grad)</div>
-                  <div class="person-sub">Speculates on tech or policy events; learns probability via markets.</div>
-                </div>
-              </div>
-              <div class="small">Low-ticket trades</div>
+          </div>
+          <div class="persona">
+            <div class="avatar">IC</div>
+            <div class="info">
+              <h3>Informed Citizen</h3>
+              <p>Follows macro, politics, tech trends — uses the platform to put capital behind convictions.</p>
             </div>
           </div>
         </div>
-
-        <div class="section">
-          <h3>Market integrity & operations</h3>
-          <p class="small">PredictionMart only lists events with verifiable resolution sources and a clear resolution clause. We apply KYC/AML in the launch jurisdictions and partner with adjudicators (trusted news sources, regulatory filings) for objective settlement. Liquidity is supported via automated market makers (AMM) and optional professional market-makers under monitored terms.</p>
-        </div>
-
-        <div class="section">
-          <h3>Risk & compliance summary</h3>
-          <p class="small">We operate under a limited-scope regulatory model out of Dubai or Singapore, and will restrict access by jurisdiction as required. Users should treat PredictionMart as a derivatives-style product — read risk disclosures and limits on our terms page.</p>
+        <div class="card">
+          <h2>What is a Prediction Market?</h2>
+          <div class="defs">
+            <div class="def-box">
+              <h4>Shares as Probability</h4>
+              <p>Each share is priced between $0 and $1, reflecting the market’s belief in the probability of an event.</p>
+            </div>
+            <div class="def-box">
+              <h4>Dynamic Odds</h4>
+              <p>Prices shift based on supply/demand. Unlike fixed betting odds, prices evolve with new information.</p>
+            </div>
+            <div class="def-box">
+              <h4>Settlement</h4>
+              <p>If the event happens (“YES”), shares settle to $1. If not, they settle to $0.</p>
+            </div>
+            <div class="def-box">
+              <h4>Profit & Loss</h4>
+              <p>If you buy at $0.30 and it settles at $1, your return is 3.33× your stake. If it settles at 0, you lose your stake.</p>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <!-- Right column: quick FAQ / resources -->
-      <aside class="card" style="padding:18px;">
-        <h3>Quick FAQ</h3>
-        <div style="margin-top:10px" class="small">
-          <strong>Q:</strong> Are trades settled in local currency?<br/>
-          <strong>A:</strong> Initially INR & USD support; more options later.<br/><br/>
+    <section id="get-started">
+      <h2>Your First Trade: Operational Steps</h2>
+      <ul class="steps">
+        <li>
+          <div class="num">1</div>
+          <div class="desc">
+            <h4>Sign Up</h4>
+            <p>Create your PredictionMart account and pass KYC checks.</p>
+          </div>
+        </li>
+        <li>
+          <div class="num">2</div>
+          <div class="desc">
+            <h4>Deposit Funds</h4>
+            <p>Link bank or wallet and top up your trading balance.</p>
+          </div>
+        </li>
+        <li>
+          <div class="num">3</div>
+          <div class="desc">
+            <h4>Trade Shares</h4>
+            <p>Select a market, pick “YES” or “NO”, set price/quantity, execute trade.</p>
+          </div>
+        </li>
+        <li>
+          <div class="num">4</div>
+          <div class="desc">
+            <h4>Settlement & Profit</h4>
+            <p>After resolution, winning shares pay $1 and profits are settled to your account.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
 
-          <strong>Q:</strong> How do you prevent manipulation?<br/>
-          <strong>A:</strong> Volume and price monitoring, market-maker contracts, and dynamic fee schedules to deter wash trading.<br/><br/>
-
-          <strong>Q:</strong> Can I short markets?<br/>
-          <strong>A:</strong> Yes — selling shares is equivalent to shorting (subject to margin rules).
+    <section id="simulator">
+      <h2>Live Market Simulator</h2>
+      <div class="card widget">
+        <div class="widget-header">
+          <p>Simulate a market in real time. Click “Add Point” to push a new random update.</p>
         </div>
-
-        <div style="margin-top:14px" class="widget">
-          <h4 style="margin:0 0 6px 0">Get started (developer preview)</h4>
-          <p class="small" style="margin:0 0 10px 0">Interested in joining our early access program? Register your interest and provide jurisdiction details.</p>
-          <a class="btn primary" href="#">Join early access</a>
+        <canvas id="simChart" height="200" style="width:100%;"></canvas>
+        <div style="margin-top:16px;">
+          <button class="btn" id="addSim">Add Point</button>
+          <button class="btn" id="resetSim" style="background: var(--accent-light)">Reset</button>
         </div>
-      </aside>
-    </div>
+      </div>
+    </section>
+
+    <!-- YouTube Video Section -->
+    <section id="video-demo">
+      <h2>Learn More About Prediction Markets</h2>
+      <div class="card widget">
+        <div class="widget-header">
+          <p>Watch this short video to understand how prediction markets aggregate collective intelligence.</p>
+        </div>
+        <iframe src="https://www.youtube.com/embed/lChCyFhCf8M" title="Prediction Markets Explained" allowfullscreen></iframe>
+      </div>
+    </section>
 
     <footer>
-      <div>© PredictionMart • Built for regulatory launch in Dubai / Singapore</div>
-      <div style="text-align:right">Hosted on GitHub Pages — <span style="color:var(--muted)">Static site ready</span></div>
+      <p>© PredictionMart 2025. All rights reserved. &nbsp;|&nbsp; Privacy & Terms & Risk Disclosure</p>
     </footer>
   </div>
 
-  <!-- JavaScript: Market Simulator -->
   <script>
-    // Market Simulator implementation
+    // Market Simulator logic
     (function(){
-      const ctx = document.getElementById('marketChart').getContext('2d');
-      // initial dataset: start at 0.42 (42%)
+      const ctx = document.getElementById('simChart').getContext('2d');
       let labels = [];
       let data = [];
-      const maxPoints = 30;
 
-      // seed with 8 points random-walk around 0.42
-      let seed = 0.42;
-      for(let i=0;i<8;i++){
-        seed = Math.min(0.98, Math.max(0.02, seed + (Math.random()-0.5)*0.08));
-        labels.push(new Date(Date.now() - (8-i)*60000).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}));
-        data.push(Number(seed.toFixed(3)));
+      let current = 0.5;
+      for(let i=0;i<10;i++){
+        current = Math.min(0.98, Math.max(0.02, current + (Math.random()-0.5)*0.1));
+        labels.push(new Date(Date.now() - (10-i)*1000).toLocaleTimeString());
+        data.push(Number(current.toFixed(3)));
       }
 
       const chart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: labels,
+          labels,
           datasets: [{
-            label: 'Price ($ per share)',
-            data: data,
+            label: 'Price ($)',
+            data,
+            borderColor: getComputedStyle(document.documentElement).getPropertyValue('--accent').trim(),
+            backgroundColor: 'rgba(255,127,15,0.3)',
+            tension: 0.25,
             fill: true,
-            backgroundColor: 'rgba(6,182,212,0.08)',
-            borderColor: 'rgba(6,182,212,0.98)',
-            tension: 0.28,
-            pointRadius: 2,
-            pointHoverRadius: 4,
+            pointRadius: 2
           }]
         },
         options: {
-          responsive: true,
           maintainAspectRatio: false,
           scales: {
-            x: {
-              display: true,
-              grid: { display: false }
-            },
             y: {
-              display: true,
               min: 0,
               max: 1,
-              ticks: {
-                callback: function(value){ return (value*100).toFixed(0) + '%'; }
-              }
+              ticks: { callback: v => (v*100).toFixed(0) + '%' }
             }
           },
-          plugins: {
-            legend: {display:false},
-            tooltip: {
-              callbacks: {
-                label: function(context){
-                  return 'Price: $' + Number(context.parsed.y).toFixed(3) + ' (' + (context.parsed.y*100).toFixed(1) + '%)';
-                }
-              }
-            }
-          }
+          plugins: { legend: { display: false } }
         }
       });
 
-      function updateLatestLabel(val){
-        const el = document.getElementById('latestPercent');
-        el.textContent = 'Latest: ' + (val*100).toFixed(1) + '% ($' + val.toFixed(3) + ')';
-      }
-
-      // update latest initially
-      updateLatestLabel(data[data.length-1]);
-
-      // random-walk function to add new point
-      function addRandomPoint(){
-        const last = chart.data.datasets[0].data[chart.data.datasets[0].data.length-1] ?? 0.42;
-        // drift: small move + occasional news jump
-        let step = (Math.random()-0.5) * 0.06; // small move
-        // simulate occasional news shock
-        if (Math.random() < 0.08) step += (Math.random() < 0.5 ? -1 : 1) * (0.05 + Math.random()*0.12);
-        let next = Math.min(0.995, Math.max(0.005, last + step));
+      function addPoint(){
+        const last = chart.data.datasets[0].data.slice(-1)[0];
+        let delta = (Math.random()-0.5) * 0.08;
+        if(Math.random() < 0.1) delta += (Math.random()<0.5 ? -1 : 1) * (0.04 + Math.random()*0.1);
+        let next = Math.min(0.99, Math.max(0.01, last + delta));
         next = Number(next.toFixed(3));
-
-        // push new label (time)
-        const nowLabel = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
-        chart.data.labels.push(nowLabel);
         chart.data.datasets[0].data.push(next);
-
-        // trim to maxPoints
-        if(chart.data.labels.length > maxPoints){
+        chart.data.labels.push(new Date().toLocaleTimeString());
+        if(chart.data.labels.length > 30){
           chart.data.labels.shift();
           chart.data.datasets[0].data.shift();
         }
         chart.update('none');
-        updateLatestLabel(next);
       }
 
-      document.getElementById('addPointBtn').addEventListener('click', function(){
-        addRandomPoint();
-      });
-
-      document.getElementById('resetBtn').addEventListener('click', function(){
-        // reset chart to initial seed values
+      document.getElementById('addSim').addEventListener('click', addPoint);
+      document.getElementById('resetSim').addEventListener('click', ()=>{
         chart.data.labels = labels.slice();
         chart.data.datasets[0].data = data.slice();
         chart.update();
-        updateLatestLabel(chart.data.datasets[0].data[chart.data.datasets[0].data.length-1]);
       });
-
-      // optional: add a datapoint every 12 seconds to feel "live" (commented out for static demo)
-      // setInterval(addRandomPoint, 12000);
     })();
   </script>
 </body>
 </html>
+
